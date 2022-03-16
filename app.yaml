@@ -22,9 +22,9 @@ libraries:
 
 
 env_variables:
-  DB_HOST: "nithin-268012:asia-south1:smarteruser"
-  USER: "smarteruser"
-  PASSWORD: "smarteruser"
-  DATABASE: "clientdb9"
+  DB_HOST: 
+  USER: 
+  PASSWORD: 
+  DATABASE: 
 
 
