@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/util.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/main.css')}}">
+	<title>Equipment Management</title>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/index.js') }}" />
+	<script type="text/javascript">
+		$SCRIPT_ROOT = {{ request.script_root | tojson | safe }};
+	</script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+	
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+				{% block content %}
+			{% for key, value in data.items() %}
+				{% if value is string %}
+					['{{ key }}', '{{ value }}'],
+				{% else %}
+					['{{ key }}', {{ value }}],
+				{% endif %}
+			{% endfor %}
+        ]);
+
+        var options = {
+					colors: ['green', 'red'],
+          is3D: true,
+		  //pieHole: 0.5
+			pieStartAngle: 100,
+			chartArea:{left:0,top:0,width:"100%",height:"100%"}
+                ,height: "50%"
+                ,width: "50%"
+		  /*slices: {  
+			2: {offset: 0.2},
+            3: {offset: 0.3}
+          }*/
+		  /*slices: {
+            1: { color: 'transparent' }
+          }*/
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('tdrawChart'));
+        chart.draw(data, options);
+      }
+		</script>
+
+
+		
+</head>
+
+<body>
+	
+	<div class="container-login1002">
+		<div class="wrap-login1002">
+			<div style="padding: 10px;">
+			
+						Welcome to Ventilator Tracker 	
+				</div>
+			
+				<div>
+					<input type="button" id="searchByHospital" value="" style="padding:13px; margin-right: 9px; float:right;" class="button">
+					<input  type="text" placeholder="Enter Hospital Name" id="h_name" value="" style="margin-right: 1%; float:right; padding-bottom:10px; padding-top: 10px; padding-left: 10px;">
+				
+					</div>
+				
+			<div>
+			<input type="button" id="logout" value="Logout" style="padding:10px; margin-right: 10px; float:right;">
+			</div>
+			<div>
+		
+				{% for row in names %}
+				
+			{% if row['hname'] in session['username'] %}
+				
+			<a href="{{ url_for('.editpage') }}" style=" height:35px; width:58px;  text-align:center; padding:10px; margin-right: 10px; float:right;  background-color:#DDDDDD;">
+							Edit
+							</a>
+		
+
+			{% endif %}
+			{% endfor %}
+			</div>
+		
+			<div id="backf">
+			<input type="button" id="back" value="Back" style="padding:10px; margin-right: 10px; float:right;">
+			</div>
+			<div>
+					
+		</div>
+		
+		 </div>	
+		 
+	</div>
+	<div>
+		<ul id="searchResult">
+				</ul>	
+	</div>
+	<div class="limiter1" id="homeform">
+		<div class="container-login1001" id="form1">
+			<div class="wrap-login1001">
+				<div class="container-login100-form-btn">
+					<span class="txt6 p-b-1">
+						<h3>OVERVIEW</h3>
+					</span>
+					<style>
+#customers {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+	width: 50%;
+	height: 100%;
+	padding-top: 8px;
+}
+
+#customers td, #customers th {
+  border: 5px solid #ddd;
+  text-align: center;
+  padding: 8px;
+}
+
+
+
+#customers td {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background-color: #4CAF50;
+	color: white;
+  padding-left: 28px;
+  padding-right: 28px;
+  
+}
+._th {
+	padding-top: 12px;
+  padding-bottom: 12px;
+  background-color: #4CAF50;
+	color: white;
+	padding-left: 28px;
+  padding-right: 28px;
+  
+}
+
+._th:hover {
+	background-color: rgb(175, 76, 76) !important;
+	transition: 0.3s ease-in-out;
+}
+
+
+					</style>
+					<table style="width:100%" id="customers">
+					
+						{% for row in table %}
+						<tr>
+						<tr>
+							<td>Total No of Hospitals</td>
+     						
+						     	<th class="_th" onclick="window.location='https://lisha-python-web.el.r.appspot.com/total'"><div><img style="padding-left:2%; width:30%;" src="static/styles/img/newicon.gif"></img></div>{{row.name}}</a></th>
+					
+							</tr>
+						
+						<tr>
+							<td>Total Ventilators</td>
+						
+							<th >{{row.num}}</th>
+						</tr>
+						<tr>
+							<td>Ventilators in Use</td>
+						
+							<th>{{row.use}}</th>
+						</tr>
+						<tr>
+							<td>Available Ventilators</td>
+						
+							<th>{{row.avail}}</th>
+						</tr>
+						</tr>
+
+					  {% endfor %}
+						
+
+					</table>
+				</div>
+			</div>
+		</div>
+
+				<div class="container-login1001" id="form2">
+			<div class="wrap-login1001">
+				<div class="container-login100-form-btn">
+				
+					<table style="width:100%" class="txt6 p-b-1" id="hospitalTabl">
+						</table>
+
+					<style>
+					
+       #hospitalTable {
+   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+	width: 50%;
+	height: 100%;
+	padding-top: 8px;
+}
+
+#hospitalTable td, #hospitalTable th {
+  border: 5px solid #ddd;
+  text-align: center;
+  padding: 8px;
+}
+
+#hospitalTable tr:nth-child(even){background-color: #f2f2f2;}
+
+#hospitalTable tr:hover {background-color: #ddd;}
+
+#customers td {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+#hospitalTable th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+	padding-left: 28px;
+  padding-right: 28px;
+  
+  background-color: #4CAF50;
+  color: white;
+}
+					</style>
+				
+					<table style="width:100%" id="hospitalTable">
+					
+                       
+					 
+						
+					</table>
+			
+				</div>
+			</div>
+		</div>
+
+		
+		<div class="container-login1001"  id="form3">
+			<div class="wrap-login1001">
+				<div class="container-login100-form-btn">
+					<span class="txt6 p-b-1">
+						<h3>SUMMARY</h3>
+
+					</span>
+					<div style="margin: 10px 0 0 10px;width: 1000px">
+		
+		    <div id="tdrawChart" ></div>
+	      </div>
+				</div>
+
+			</div>
+		</div>
+
+				
+		<div class="container-login1001" id="form4">
+			<div class="wrap-login1001">
+				<div class="container-login100-form-btn">
+					<table style="width:100%" class="txt6 p-b-1" id="hospitalTab">
+						{% endblock %}
+						</table>
+					<div style="margin: 10px 0 0 10px;width: 1000px">
+		
+		    <div id="piechart" ></div>
+	      </div>
+				</div>
+
+			</div>
+		</div>
+
+
+	</div>
+</div>
+	<div class="container-login1003" id="form5">
+		<div class="wrap-login1002">
+			<style>
+      /* Set the size of the div element that contains the map */
+      #map {
+        height: 100%;  /* The height is 400 pixels */
+        width: 100%;  /* The width is the width of the web page */
+       }
+    </style>
+		
+			<div id="map"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.js"></script>
+   <script>
+      var map;
+       function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 10,
+          center: new google.maps.LatLng(10.03151600,76.36710800),
+          mapTypeId: 'roadmap'
+        });
+
+//variable to hold your endpoint
+var coodAddresses = '/map';
+//an array to hold your cordinates
+var locations = [];
+//Using fetch to process the ajax call 
+// if you use fetch, besure to include the source below this line in your template
+let infowindow = new google.maps.InfoWindow();
+fetch(coodAddresses)
+.then(function(response) {
+ return response.text();
+ }).then(function(body) {
+ var obj = JSON.parse(body);
+ var myAdd = {};
+ var addresses = obj.cordinates;
+ var l = addresses.length;
+ for (i = 0; i < l; i++) {
+ myAdd = {
+      position: {
+          lat: parseFloat(obj.cordinates[i].lat),
+          lng: parseFloat(obj.cordinates[i].lng)
+                },
+				 label: 
+					{
+						text: String(obj.cordinates[i].title),
+						color: "white",
+					},
+					title1: obj.cordinates[i].title1
+				
+           };
+ locations.push(myAdd);
+}
+locations.forEach(function(feature) {
+          var marker = new google.maps.Marker({
+            position: feature.position,
+            label: feature.label,
+            map: map
+          });
+					marker.addListener('mouseover', function() {
+            infowindow.open(map, marker);
+            infowindow.setContent("<p>" + feature.title1 + "</p>");
+
+          });
+          marker.addListener("mouseout", function() {
+            infowindow.close();
+          });
+        });
+
+}).catch(function() {
+// if the ajax call fails display an error in an info window
+                var pos = {
+                    lat: lat,
+                    lng: lng
+                };
+                infoWindow.setMap(map);
+                infoWindow.setPosition(pos);
+                infoWindow.setContent('An error occurred, we are unable to retreive cordinates.');
+
+            });
+      }
+   </script>
+ <script async defer
+ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAimtp0GRnTrNPgZtsC8IGNZPfoqhBn-k8&callback=initMap">
+ </script>
+		
+	   </div>	
+	</div>
+	<div class="container-login1003" id="form6">
+		<div class="wrap-login1002">
+			<style>
+      /* Set the size of the div element that contains the map */
+      #map1 {
+        height: 100%;  /* The height is 400 pixels */
+        width: 100%;  /* The width is the width of the web page */
+       }
+    </style>
+		
+			<div id="map1"></div>
+		<script>
+			
+			function initMap1(lat1, lng1, ven, hos) {
+				let infowindow = new google.maps.InfoWindow();
+	
+				
+                    // The location of Uluru
+										var uluru = {
+											lat: parseFloat(lat1), 
+											lng: parseFloat(lng1)};
+										console.log(uluru)
+                    // The map, centered at Uluru
+										label = { text: String(ven), color: "white"	}
+                    var map = new google.maps.Map(
+                        document.getElementById('map1'), {zoom: 6, center: new google.maps.LatLng(10.85051600,76.27108000)});
+                    // The marker, positioned at Uluru
+                    var marker = new google.maps.Marker({position: uluru, label:label, map: map});
+										marker.addListener('mouseover', function() {
+            infowindow.open(map, marker);
+            infowindow.setContent("<p>" + hos + "</p>");
+
+          });
+          marker.addListener("mouseout", function() {
+            infowindow.close();
+          });
+									}
+                
+			</script>
+			<script async defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAimtp0GRnTrNPgZtsC8IGNZPfoqhBn-k8&callback=initMap1">
+      </script>
+	   </div>	
+	</div>
+</body>
+
+</html>
+
+
+

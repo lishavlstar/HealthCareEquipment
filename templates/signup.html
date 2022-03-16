@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/util.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/main.css')}}">
+		<title>Equipment Management</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css">
+		<script type="text/javascript" src="{{ url_for('static', filename='js/register.js') }}"/>
+		
+		<script type="text/javascript">
+			$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+		</script>
+	</head>
+	<body>
+	
+	<div class="limiter" id="signupform">
+		<div class="container-login100">
+			<div class="wrap-login100" style="padding: 18px;" >
+					<div class="container-login100-form-btn">
+					<span class="txt5 p-b-9">
+					<h3>Personal Details</h3>
+					</span>
+				    </div>
+					<div id="msg"></div>
+				       <div class="wrap-input100 validate-input m-b-16" data-validate="Please enter username">
+						<input class="input100" type="text" placeholder="Name" id = "fullname">
+						<span class="focus-input100"></span>
+					</div>
+					
+				       <div class="wrap-input100 validate-input m-b-16" data-validate="Please enter username">
+						<input class="input100" type="text" placeholder="Hospital Name(Optional)" id = "hname">
+						<span class="focus-input100"></span>
+					</div>
+					
+				       <div class="wrap-input100 validate-input m-b-16" data-validate="Please enter username">
+						<input class="input100" type="text" placeholder="Address" id = "address">
+						<span class="focus-input100"></span>
+					</div>
+					
+				       <div class="wrap-input100 validate-input m-b-16" data-validate="Please enter username">
+						<select name="District" placeholder="District" class="input100"  id="district" >
+							<option value="District">District</option>
+							<option value="Alappuzha">Alappuzha</option>
+							<option value="Ernakulam">Ernakulam</option> 
+							<option value="Idukki">Idukki</option>
+							<option value="Kannur">Kannur</option>
+							<option value="Kasaragod">Kasaragod</option>     
+							<option value="Kollam">Kollam</option>
+							<option value="Kottayam">Kottayam</option>
+							<option value="Kozhikode">Kozhikode</option>
+							<option value="Malappuram">Malappuram</option>
+							<option value="Palakkad">Palakkad</option>
+							<option value="Pathanamthitta">Pathanamthitta</option>
+							<option value="Thiruvananthapuram">Thiruvananthapuram</option>
+							<option value="Thrissur">Thrissur</option>
+							<option value="	Wayanad">Wayanad</option>
+						</select>
+						<span class="focus-input100"></span>
+					</div>
+					
+				       <div class="wrap-input100 validate-input m-b-16" data-validate="Please enter username">
+						<input class="input100" type="text" placeholder="Pincode" id = "pincode">
+						<span class="focus-input100"></span>
+					</div>
+					
+
+					
+					
+				       <div class="wrap-input100 validate-input m-b-16" data-validate="Please enter username">
+						<input class="input100" type="text" placeholder="Phone Number" id = "phno" maxlength="10">
+						<span class="focus-input100"></span>
+					</div>
+
+                    <div id="msg"></div>
+					<div class="wrap-input100 validate-input m-b-16" data-validate="Please enter username">
+						<input class="input100" type="email" placeholder="Email" id = "email">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input m-b-16" data-validate = "Please enter password">
+						<input class="input100" type="password" placeholder="Password" id = "password">
+						<span class="focus-input100"></span>
+					</div>
+                                        <div class="wrap-input100 validate-input m-b-16" data-validate = "Please enter password">
+						<input class="input100" type="password" placeholder="Confirm Password" id = "cnfpassword">
+						<span class="focus-input100"></span>
+					</div>
+
+
+					<div class="container-login100-form-btn ">
+						
+							<input type="button" id="signupSubmit" value="Submit" class="login100-form-btn shadow">	
+												
+					</div>					
+				          	
+			</div>
+		</div>
+	</div>
+    
+		
+</body>
+</html>

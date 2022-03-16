@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+<h2>Equipment Management</h2>
+<h3>Ventilator Details Table</h3>
+
+<table>
+  <tr>
+    <th>Hospital Name</th>
+    <th>Total Ventilators</th>
+    <th>Ventilators in Use</th>
+    <th>Available Ventilators</th>
+  </tr>
+  {% block content %}
+  {% for row in data %}
+  <tr>
+   <td>{{ row.hname }}</td>
+   <td>{{ row.vnum }}</td>
+   <td>{{ row.vuse }}</td>
+   <td>{{ row.vavail }}</td>
+</tr> 
+   {% endfor %}
+   {% endblock %}  
+
+
+
+</table>
+</body>
+</html>

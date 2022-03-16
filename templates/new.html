@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/util.css')}}">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/main.css')}}">
+		<title>Equipment Management</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css">
+		<script type="text/javascript" src="{{ url_for('static', filename='js/resetp.js') }}"/>
+		
+		<script type="text/javascript">
+			$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+		</script>
+	</head>
+	<body>
+		<div class="limiter" id="form">
+		<div class="container-login100">
+			<div class="wrap-login100" style="padding: 18px;" >
+					<div class="container-login100-form-btn">
+					<span class="txt5 p-b-9">
+					<h3>Reset Password</h3>
+					</span>
+				    </div>
+                  <div id="msg"></div>
+				  <input  type="text"  id="email" value={{ email }} hidden="hidden" />
+
+					<div class="wrap-input100 validate-input m-b-16" data-validate = "Please enter password">
+						<input class="input100" type="password" placeholder="Password" id = "password">
+						<span class="focus-input100"></span>
+					</div>
+                    <div class="wrap-input100 validate-input m-b-16" data-validate = "Please enter password">
+						<input class="input100" type="password" placeholder="Confirm Password" id = "cnfpassword">
+						<span class="focus-input100"></span>
+					</div>
+
+
+					<div class="container-login100-form-btn ">
+						
+							<input type="button" id="signupSubmit" value="RESET" class="login100-form-btn shadow">	
+												
+					</div>					
+				          	
+			</div>
+		</div>
+	</div>
+</body>
+</html>
